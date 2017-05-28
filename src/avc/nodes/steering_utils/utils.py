@@ -1,10 +1,13 @@
-import numpy as np
-import json
-import matplotlib.pyplot as plt 
+import os
 import sys
+import json
+import math
+import numpy as np
+import matplotlib.pyplot as plt 
 from scipy.special import erfc
 
-with open('steering_utils/previous_data/ackermann.json', 'rb') as f:
+fn = os.path.join(os.path.dirname(__file__), 'previous_data/ackermann.json')
+with open(fn, 'rb') as f:
     original = json.load(f)
 
 data = []
@@ -15,7 +18,6 @@ x = np.sort(data)
 
 x = np.unique(x)
 
-import math
 def get_relatived_value(arr, rel_idx):
     forward_bias, idx = math.modf(rel_idx * len(arr))
     if idx+1 == len(arr):

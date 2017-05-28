@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import rospy
 from ackermann_msgs.msg import AckermannDriveStamped
 from sensor_msgs.msg import LaserScan
@@ -65,7 +66,8 @@ pred = conv_net(x, weights, biases, keep_prob)
 init = tf.global_variables_initializer()
 saver = tf.train.Saver()
 sess = tf.Session()
-saver.restore(sess, 'steering_utils/model/test.ckpt')
+fn = os.path.join(os.path.dirname(__file__), 'steering_utils/model/test.ckpt')
+saver.restore(sess, fn)
 
 
 def cmd_callback(data):
@@ -78,7 +80,7 @@ def cmd_callback(data):
     msg.header.stamp = rospy.Time.now()
     msg.header.frame_id = frame_id
     msg.drive.steering_angle = prediction
-    msg.drive.speed = 0.0
+    msg.drive.speed = 0.3
     
     pub.publish(msg)
     
