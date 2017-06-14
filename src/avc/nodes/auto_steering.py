@@ -73,8 +73,8 @@ saver.restore(sess, fn)
 def cmd_callback(data):
     global frame_id
     global pub
-    normalized_prediction = sess.run(pred, feed_dict={x: [data.ranges]})
-    prediction = denormalize(normalized_prediction)
+    normalized_prediction = sess.run(pred, feed_dict={x: [data.ranges]})[0][0]
+    prediction = denormalize(normalized_prediction/100.0)
     
     msg = AckermannDriveStamped()
     msg.header.stamp = rospy.Time.now()
@@ -88,7 +88,7 @@ def cmd_callback(data):
 if __name__ == '__main__': 
     try:
         
-        rospy.init_node('cmd_vel_to_ackermann_drive')
+        rospy.init_node('auto_steering')
                 
         laser_topic = '/sensors/scan'
         cmd_topic = '/vesc/ackermann_cmd_mux/input/navigation'

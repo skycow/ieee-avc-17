@@ -3,7 +3,7 @@ import sys
 import json
 import math
 import numpy as np
-import matplotlib.pyplot as plt 
+#import matplotlib.pyplot as plt 
 from scipy.special import erfc
 
 fn = os.path.join(os.path.dirname(__file__), 'previous_data/ackermann.json')
