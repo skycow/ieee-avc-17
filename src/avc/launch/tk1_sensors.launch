@@ -1,0 +1,8 @@
+<launch>
+
+  <!-- start sensors -->
+  <group ns="sensors">
+    <include file="$(find avc)/launch/includes/sensors/sensors.launch.xml" />
+  </group>
+
+</launch>
