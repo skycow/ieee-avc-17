@@ -1,0 +1,13 @@
+<launch>
+
+  <!-- start sensors -->
+  <group ns="sensors">
+    <include file="$(find avc)/launch/includes/sensors/sensors.launch.xml" />
+  </group>
+
+  <!-- autosteering node -->
+  <group ns="auto_steering">
+  	<node name="auto_steering" pkg="avc" type="auto_steering.py" output="screen"></node>
+  </group>
+
+</launch>
