@@ -10,6 +10,16 @@
   <arg name="amcl" default="false" />
   <arg name="map_server" default="false" />
   <arg name="nav" default="false" />
+  <arg name="opencv" default="false" />
+  <arg name="opencvcpp" default="false" />
+
+  <group ns="opencvns" if="$(arg opencv)">
+  <node name="opencvname" pkg="opencvavc" type="stopsign.py" />
+  </group>
+
+  <group ns="opencvns" if="$(arg opencvcpp)">
+  <node name="opencvname" pkg="opencvavc" type="stopsigncpp" />
+  </group>
 
   <arg name="bag" default="false" />
   <node name="bag" pkg="rosbag" type="record" args="-a" if="$(arg bag)"/>

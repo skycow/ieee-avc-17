@@ -16,6 +16,11 @@ subscribers:
     timeout:     0.2
     priority:    10
     short_desc:  "Input for human teleoperation (joystick)"
+  - name:        "opencv"
+    topic:       "input/opencv"
+    timeout:     0.2
+    priority:    7
+    short_desc:  "opencv control meant to override nav"
   - name:        "Navigation"
     topic:       "input/navigation"
     timeout:     0.5

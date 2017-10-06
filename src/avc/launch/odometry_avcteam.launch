@@ -1,0 +1,5 @@
+<launch>
+
+  <node pkg="avc" type="nodes/odometry_avcteam" name="rpmodom"/>
+
+</launch>

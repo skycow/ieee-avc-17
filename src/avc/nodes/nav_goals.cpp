@@ -16,50 +16,73 @@ int main(int argc, char** argv){
     ros::param::set("/yaw_goal_tolerance", 1.0);
 
 
-    int numPoses = 7;
+    int numPoses = 11;
     struct Poses* poses = new Poses[numPoses];
 
     //Position(12.840, -1.076, 0.000), Orientation(0.000, 0.000, -0.065, 0.998) = Angle: -0.131
-    poses[0].pos[0] = 12.840;
-    poses[0].pos[1] = -1.076;
-    poses[0].rot[0] = -0.065;
-    poses[0].rot[1] = 0.998;
+    poses[0].pos[0] =16.00661;
+    poses[0].pos[1] = -2.09784;
+    poses[0].rot[0] = -0.72195;
+    poses[0].rot[1] = 0.69194;
 
     //Position(8.433, -14.722, 0.000), Orientation(0.000, 0.000, -0.732, 0.681) = Angle: -1.642
-    poses[1].pos[0] = 8.433;
-    poses[1].pos[1] = -14.722;
-    poses[1].rot[0] = -0.732;
-    poses[1].rot[1] = 0.681;
+    poses[1].pos[0] = 19.94042;
+    poses[1].pos[1] =  -7.04888;
+    poses[1].rot[0] = -0.00943;
+    poses[1].rot[1] = 0.99995;
 
     //Position(8.202, -22.073, 0.000), Orientation(0.000, 0.000, -0.753, 0.658) = Angle: -1.706
-    poses[2].pos[0] = 8.202;
-    poses[2].pos[1] = -22.073;
-    poses[2].rot[0] = -0.753;
-    poses[2].rot[1] = 0.658;
+    poses[2].pos[0] =44.72389; 
+    poses[2].pos[1] =-11.50415;
+    poses[2].rot[0] =-0.69917;
+    poses[2].rot[1] =0.71494;
 
-    //Position(-3.362, -29.020, 0.000), Orientation(0.000, 0.000, 0.999, 0.032) = Angle: 3.077
-    poses[3].pos[0] = -3.362;
-    poses[3].pos[1] = -29.020;
-    poses[3].rot[0] = 0.999;
-    poses[3].rot[1] = 0.032;
+    poses[3].pos[0] =45.41506;
+    poses[3].pos[1] = -30.45268;
+    poses[3].rot[0] =-0.01879;
+    poses[3].rot[1] =0.99982;
 
-    //Position(-6.322, -19.478, 0.000), Orientation(0.000, 0.000, 0.656, 0.754) = Angle: 1.432
-    poses[4].pos[0] = -6.322;
-    poses[4].pos[1] = -19.478;
-    poses[4].rot[0] = 0.656;
-    poses[4].rot[1] = 0.754;
+    //Position(8.433, -14.722, 0.000), Orientation(0.000, 0.000, -0.732, 0.681) = Angle: -1.642
+    poses[4].pos[0] = 55.71775; 
+    poses[4].pos[1] =-31.06762;
+    poses[4].rot[0]= -0.07175;
+    poses[4].rot[1] =0.99742; 
 
-    //Position(-6.001, -10.733, 0.000), Orientation(0.000, 0.000, 0.619, 0.785) = Angle: 1.336
-    poses[5].pos[0] = -6.001;
-    poses[5].pos[1] = -10.733;
-    poses[5].rot[0] = 0.619;
-    poses[5].rot[1] = 0.785;
+    //Position(8.202, -22.073, 0.000), Orientation(0.000, 0.000, -0.753, 0.658) = Angle: -1.706
+    poses[5].pos[0] = 71.49681;
+    poses[5].pos[1] = -30.36725;
+    poses[5].rot[0] = 0.70864;
+    poses[5].rot[1] = 0.70556;
 
-    //Position(3.628, 0.330, 0.000), Orientation(0.000, 0.000, -0.050, 0.999) = Angle: -0.101
-    poses[6].pos[0] = 3.628;
-    poses[6].pos[1] = 0.330;
-    poses[6].rot[0] = -0.050;
-    poses[6].rot[1] = 0.999;
+    //Position(8.202, -22.073, 0.000), Orientation(0.000, 0.000, -0.753, 0.658) = Angle: -1.706
+    poses[6].pos[0] = 71.85166;
+    poses[6].pos[1] = -21.17044;
+    poses[6].rot[0] = 0.67549;
+    poses[6].rot[1] = 0.73736;
+
+    //Position(8.202, -22.073, 0.000), Orientation(0.000, 0.000, -0.753, 0.658) = Angle: -1.706
+    poses[7].pos[0] = 68.77900;
+    poses[7].pos[1] = -8.89277;
+    poses[7].rot[0] = 0.99912;
+    poses[7].rot[1] = 0.04192;
+
+    //Position(8.202, -22.073, 0.000), Orientation(0.000, 0.000, -0.753, 0.658) = Angle: -1.706
+    poses[8].pos[0] = 40.76310;
+    poses[8].pos[1] = -7.91019;
+    poses[8].rot[0] = 0.99984;
+    poses[8].rot[1] = 0.01765;
+
+    //Position(8.202, -22.073, 0.000), Orientation(0.000, 0.000, -0.753, 0.658) = Angle: -1.706
+    poses[9].pos[0] = 15.80878;
+    poses[9].pos[1] = -4.09852;
+    poses[9].rot[0] = 0.68877;
+    poses[9].rot[1] = 0.72497;
+
+    //Position(8.202, -22.073, 0.000), Orientation(0.000, 0.000, -0.753, 0.658) = Angle: -1.706
+    poses[10].pos[0] = 4.80525;
+    poses[10].pos[1] = 0.08393;
+    poses[10].rot[0] = 0.99967;
+    poses[10].rot[1] = 0.02559;
 
     //tell the action client that we want to spin a thread by default
     MoveBaseClient ac("move_base", true);
