@@ -1,0 +1,243 @@
+#include <ros/ros.h>
+#include <move_base_msgs/MoveBaseAction.h>
+#include <actionlib/client/simple_action_client.h>
+
+typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+
+struct Poses {
+	float pos[2];
+	float rot[2];
+};
+
+int main(int argc, char** argv){
+	ros::init(argc, argv, "nav_goals");
+	ros::param::set("/free_goal_vel", true);
+	ros::param::set("/xy_goal_tolerance", 0.4);
+	ros::param::set("/yaw_goal_tolerance", 1.0);
+
+	int numPoses = 7;
+	struct Poses* poses = new Poses[numPoses];
+
+	//Position(12.840, -1.076, 0.000), Orientation(0.000, 0.000, -0.065, 0.998) = Angle: -0.131
+    poses[0].pos[0] = 24.3563041687;
+    poses[0].pos[1] = -0.885554432869;
+    poses[0].rot[0] = 0.302491396804;
+    poses[0].rot[1] = 0.953152115278;
+
+    //Position(8.433, -14.722, 0.000), Orientation(0.000, 0.000, -0.732, 0.681) = Angle: -1.642
+    poses[1].pos[0] = 25.8810005188;
+    poses[1].pos[1] = 16.332069397;
+    poses[1].rot[0] = 0.98257302653;
+    poses[1].rot[1] = 0.185876968812;
+
+    //Position(8.202, -22.073, 0.000), Orientation(0.000, 0.000, -0.753, 0.658) = Angle: -1.706
+    poses[2].pos[0] = 15.1311779022;
+    poses[2].pos[1] = 11.1205072403;
+    poses[2].rot[0] = -0.771845847604;
+    poses[2].rot[1] = 0.635809710162;
+
+    //poses[3].pos[0] = 14.8527202606;
+    //poses[3].pos[1] = -7.09735488892;
+    //poses[3].rot[0] = -0.689336248493;
+    //poses[3].rot[1] = 0.724441534228;
+
+    //Position(8.433, -14.722, 0.000), Orientation(0.000, 0.000, -0.732, 0.681) = Angle: -1.642
+    poses[3].pos[0] = 14.9024143219; 
+    poses[3].pos[1] = -20.9094676971;
+    poses[3].rot[0] = 0.928598096117;
+    poses[3].rot[1] = -0.371087019293;
+
+    //Position(8.202, -22.073, 0.000), Orientation(0.000, 0.000, -0.753, 0.658) = Angle: -1.706
+    poses[4].pos[0] = 3.01051425934;
+    poses[4].pos[1] = -25.2211914062;
+    poses[4].rot[0] = 0.947313260764;
+    poses[4].rot[1] = 0.320308579311;
+
+    //Position(8.202, -22.073, 0.000), Orientation(0.000, 0.000, -0.753, 0.658) = Angle: -1.706
+    poses[5].pos[0] = -1.35394191742;
+    poses[5].pos[1] = -10.465338707;
+    poses[5].rot[0] = 0.33967970775;
+    poses[5].rot[1] = 0.940541171955;
+
+    //Position(8.202, -22.073, 0.000), Orientation(0.000, 0.000, -0.753, 0.658) = Angle: -1.706
+    poses[6].pos[0] = 8.49039173126;
+    poses[6].pos[1] = -6.0890007019;
+    poses[6].rot[0] = 0.21437342001;
+    poses[6].rot[1] = 0.976751778495;
+
+    //tell the action client that we want to spin a thread by default
+    MoveBaseClient ac("move_base", true);
+
+    //wait for the action server to come up
+    while(!ac.waitForServer(ros::Duration(5.0))){
+        ROS_INFO("Waiting for the move_base action server to come up");
+    }
+
+    for (int i=0; i<numPoses; ++i) {
+        move_base_msgs::MoveBaseGoal goal;
+
+        goal.target_pose.header.frame_id = "map";
+        goal.target_pose.header.stamp = ros::Time::now();
+
+        goal.target_pose.pose.position.x = poses[i].pos[0];
+        goal.target_pose.pose.position.y = poses[i].pos[1];
+        goal.target_pose.pose.orientation.z = poses[i].rot[0];
+        goal.target_pose.pose.orientation.w = poses[i].rot[1];
+
+        ROS_INFO("Sending goal #%d", i);
+        ac.sendGoal(goal);
+
+        ac.waitForResult();
+
+        if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+            ROS_INFO("Goal #%d reached", i);
+        }
+        else {
+            ROS_INFO("Failed to reach goal #%d", i);
+	    --i;
+	    continue;
+        }
+    }
+
+    return 0;
+}
+
+/*
+header: 
+  seq: 0
+  stamp: 
+    secs: 1507984074
+    nsecs: 432229443
+  frame_id: map
+pose: 
+  position: 
+    x: 18.0435523987
+    y: -2.92783951759
+    z: 0.0
+  orientation: 
+    x: 0.0
+    y: 0.0
+    z: 0.188467965353
+    w: 0.982079337954
+---
+header: 
+  seq: 1
+  stamp: 
+    secs: 1507984121
+    nsecs:  63587028
+  frame_id: map
+pose: 
+  position: 
+    x: 31.9820270538
+    y: 6.8506064415
+    z: 0.0
+  orientation: 
+    x: 0.0
+    y: 0.0
+    z: 0.725733909014
+    w: 0.687975503421
+---
+header: 
+  seq: 2
+  stamp: 
+    secs: 1507984130
+    nsecs: 575102752
+  frame_id: map
+pose: 
+  position: 
+    x: 26.3127059937
+    y: 15.7774839401
+    z: 0.0
+  orientation: 
+    x: 0.0
+    y: 0.0
+    z: 0.967754518871
+    w: 0.251895198852
+---
+header: 
+  seq: 3
+  stamp: 
+    secs: 1507984143
+    nsecs: 140251626
+  frame_id: map
+pose: 
+  position: 
+    x: 13.7842350006
+    y: 11.0979137421
+    z: 0.0
+  orientation: 
+    x: 0.0
+    y: 0.0
+    z: -0.710321933622
+    w: 0.703876942807
+---
+header: 
+  seq: 4
+  stamp: 
+    secs: 1507984156
+    nsecs: 869269461
+  frame_id: map
+pose: 
+  position: 
+    x: 14.4668140411
+    y: -3.57088804245
+    z: 0.0
+  orientation: 
+    x: 0.0
+    y: 0.0
+    z: -0.656639986684
+    w: 0.75420416857
+---
+header: 
+  seq: 5
+  stamp: 
+    secs: 1507984204
+    nsecs: 423257560
+  frame_id: map
+pose: 
+  position: 
+    x: 4.58767414093
+    y: -25.4991645813
+    z: 0.0
+  orientation: 
+    x: 0.0
+    y: 0.0
+    z: 0.975034801782
+    w: 0.222052100451
+---
+header: 
+  seq: 6
+  stamp: 
+    secs: 1507984213
+    nsecs: 775688651
+  frame_id: map
+pose: 
+  position: 
+    x: -0.372051239014
+    y: -10.5009384155
+    z: 0.0
+  orientation: 
+    x: 0.0
+    y: 0.0
+    z: 0.307050199578
+    w: 0.951693319793
+---
+header: 
+  seq: 7
+  stamp: 
+    secs: 1507984224
+    nsecs: 842439302
+  frame_id: map
+pose: 
+  position: 
+    x: 10.1185894012
+    y: -6.00762653351
+    z: 0.0
+  orientation: 
+    x: 0.0
+    y: 0.0
+    z: 0.169557705202
+    w: 0.985520260881
+---
+
+*/

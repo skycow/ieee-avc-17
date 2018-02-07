@@ -1,13 +1,3 @@
-#########################################################################
-#
-# we could also implement torso detection rather easily so we dont 
-# start driving after the stop and run into the pedestrian. Just add
-# as a command line argument like we did with the stop sign.
-#
-# On second thought, the laser data should be able to detect and avoid
-# the pedestrain.
-#
-#########################################################################
 
 import cv2
 import sys

@@ -12,6 +12,11 @@
   <arg name="nav" default="false" />
   <arg name="opencv" default="false" />
   <arg name="opencvcpp" default="false" />
+  <arg name="nav_goals" default="false" />
+
+  <group ns="nav_goals" if="$(arg nav_goals)">
+  <node name="nav_goals" pkg="avc" type="nav_goals" />
+  </group>
 
   <group ns="opencvns" if="$(arg opencv)">
   <node name="opencvname" pkg="opencvavc" type="stopsign.py" />
